@@ -9,6 +9,15 @@ plugins {
 android {
     compileSdk 31
 
+    signingConfigs {
+        signed {
+            storeFile file(rootProject.file('keystore/keystore.jks'))
+            storePassword 'LpKoJi098)(*'
+            keyAlias 'latestmovies'
+            keyPassword 'LpKoJi098)(*'
+        }
+    }
+
     defaultConfig {
         applicationId "com.lovoo.lovoooffice"
         minSdk 21
@@ -16,8 +25,13 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField "String", "BASE_URL", '"https://europe-west1-lv-trialwork.cloudfunctions.net/"'
-        buildConfigField "String", "CREDENTIAL_USERNAME", '"lovooTrailUser"'
-        buildConfigField "String", "CREDENTIAL_PASSWORD", '"lovoo#2021"'
+        //TODO please add Basic auth. ex: Basic d5g32b9UfmdsaDCdAAS8aS26d87hGHjadFH==
+        buildConfigField "String", "BASIC_TOKEN", '"Basic bG92b29UcmlhbFVzZXI6bG92b28jMjAyMQ=="'
+
+        buildConfigField "int", "READ_TIMEOUT", "30"
+        buildConfigField "int", "WRITE_TIMEOUT", "30"
+        buildConfigField "int", "CONNECTION_TIMEOUT", "10"
+        buildConfigField "long", "CACHE_SIZE_BYTES", "10*10*1024"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -79,6 +93,14 @@ android {
         dataBinding = true
     }
 
+    dataBinding {
+        enabled = true
+    }
+
+    viewBinding {
+        enabled = true
+    }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -91,7 +113,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
 //    Lifecycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.3.1'
