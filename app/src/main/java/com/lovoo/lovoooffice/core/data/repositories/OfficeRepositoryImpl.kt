@@ -1,27 +1,22 @@
 package com.example.latestmovies.model.repositories
 
-import com.lovoo.lovoooffice.core.data.database.dao.movie.Office
-import com.lovoo.lovoooffice.core.data.database.dao.movie.OfficeDao
-import com.lovoo.lovoooffice.core.data.remote.OfficesServiceInterface
-import com.lovoo.lovoooffice.core.domain.repositories.OfficeRepositoryInterface
+import com.lovoo.lovoooffice.core.data.database.model.office.OfficeDto
+import com.lovoo.lovoooffice.core.data.database.dao.OfficeDao
+import com.lovoo.lovoooffice.core.data.database.model.office.OfficeDtoMapper
+import com.lovoo.lovoooffice.core.data.remote.OfficeService
+import com.lovoo.lovoooffice.core.domain.repositories.OfficeRepository
+import javax.inject.Inject
 
-class OfficeRepository(
-    private val _officesService: OfficesServiceInterface,
+class OfficeRepositoryImpl @Inject constructor(
+    private val _officesService: OfficeService,
     private val _officeDao: OfficeDao
-) : OfficeRepositoryInterface {
-
-//    private var mGetOfficesInterface : IGetOffices? = null
-//
-//    interface IGetOffices{
-//        fun getOfficesSuccess(offices : List<Office>){}
-//        fun getOfficesFailed(errorMessage : String){}
-//    }
+) : OfficeRepository {
 
 //    fun flowOffices(): Flow<List<Office>> {
 //        return _officeDao.flowOffices()
 //    }
 
-    override suspend fun getOffices() : List<Office>{
+    override suspend fun getOffices() : List<OfficeDto>{
         return _officesService.getLovooOffices()
 //        _officesService.getLovooOffices().enqueue(object : Callback<List<Office>> {
 //            override fun onResponse(call: Call<List<Office>>, response: Response<List<Office>>) {

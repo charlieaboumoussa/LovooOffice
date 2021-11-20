@@ -1,6 +1,7 @@
 package com.lovoo.lovoooffice.common.base.ui
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.NavigationRes
@@ -25,13 +26,10 @@ abstract class BaseNavigationActivity : BaseActivity() {
         titleHandling(arguments, _binding.materialToolbar)
     }
 
-    override fun setContentView(layoutResID: Int) {
-        _binding = ActivityBaseNavigationBinding.inflate(layoutInflater)
-        setContentView(_binding.root)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        _binding = ActivityBaseNavigationBinding.inflate(layoutInflater)
+        setContentView(_binding.root)
         mNavHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         mNavController = mNavHostFragment.navController
         mNavGraph = mNavController.navInflater.inflate(getNavGraph())
