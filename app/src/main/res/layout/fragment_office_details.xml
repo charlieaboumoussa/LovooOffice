@@ -1,0 +1,151 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.lovoo.lovoooffice.presentation.officedetails.OfficeDetailsViewModel"/>
+        <variable
+            name="viewModel"
+            type="OfficeDetailsViewModel" />
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView_title"
+                style="?attr/textAppearanceBoldHeadline5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.uiState.office.name}"
+                android:autoSizeTextType="uniform"
+                android:lines="1"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Title"/>
+
+            <TextView
+                android:id="@+id/textView_label_office_level"
+                style="?attr/textAppearanceBoldBody2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                android:layout_marginVertical="@dimen/margin_small"
+                android:ellipsize="end"
+                android:text="@{@string/office_level + ':'}"
+                tools:text="@string/office_level"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_title" />
+
+            <TextView
+                android:id="@+id/textView_office_level"
+                style="?attr/textAppearanceBody3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constrainedWidth="true"
+                android:layout_marginStart="@dimen/margin_xsmall"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textView_label_office_level"
+                app:layout_constraintStart_toEndOf="@+id/textView_label_office_level"
+                android:text="@{viewModel.uiState.office.officeLevel.toString()}"
+                tools:text="1" />
+
+            <TextView
+                android:id="@+id/textView_label_room_number"
+                style="?attr/textAppearanceBoldBody2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                android:layout_marginVertical="@dimen/margin_small"
+                android:ellipsize="end"
+                android:text="@{@string/room_number + ':'}"
+                tools:text="@string/room_number"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintStart_toEndOf="@+id/textView_office_level"
+                app:layout_constraintTop_toBottomOf="@+id/textView_title" />
+
+            <TextView
+                android:id="@+id/textView_room_number"
+                style="?attr/textAppearanceBody3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_xsmall"
+                android:text="@{viewModel.uiState.office.roomNumber}"
+                android:autoSizeTextType="uniform"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBaseline_toBaselineOf="@+id/textView_label_room_number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView_label_room_number"
+                tools:text="1" />
+
+            <TextView
+                android:id="@+id/textView_bookings"
+                style="?attr/textAppearanceBoldHeadline5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="@string/bookings"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_label_office_level" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_bookings"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:clipToPadding="false"
+                android:paddingHorizontal="@dimen/margin_small"
+                android:paddingVertical="@dimen/margin_xsmall"
+                app:layout_constraintBottom_toTopOf="@+id/materialButtonBookOffice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_bookings" />
+
+            <TextView
+                android:id="@+id/textView_no_items"
+                style="?attr/textAppearanceBoldBody1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                android:layout_marginVertical="@dimen/margin_small"
+                android:layout_marginTop="211dp"
+                android:layout_marginBottom="573dp"
+                android:ellipsize="end"
+                android:visibility="@{viewModel.uiState.office.bookings.size() > 0 ? View.GONE : View.VISIBLE}"
+                android:text="@string/no_bookings_available"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="@+id/recyclerView_bookings"
+                app:layout_constraintEnd_toEndOf="@+id/recyclerView_bookings"
+                app:layout_constraintStart_toStartOf="@+id/recyclerView_bookings"
+                app:layout_constraintTop_toTopOf="@+id/recyclerView_bookings" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/materialButtonBookOffice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:text="@string/book_office"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>

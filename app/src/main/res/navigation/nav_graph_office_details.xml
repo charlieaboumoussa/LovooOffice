@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_office_details"
+    app:startDestination="@id/officeDetailsFragment">
+
+    <argument
+        android:name="office"
+        app:argType="com.lovoo.lovoooffice.core.domain.model.Office" />
+    <fragment
+        android:id="@+id/officeDetailsFragment"
+        android:name="com.lovoo.lovoooffice.presentation.officedetails.OfficeDetailsFragment"
+        android:label="OfficeDetailsFragment"
+        tools:layout="@layout/fragment_office_details">
+        <argument
+            android:name="office"
+            app:argType="com.lovoo.lovoooffice.core.domain.model.Office" />
+        <argument
+            android:name="title"
+            android:defaultValue="@string/office_information"
+            app:argType="reference" />
+        <action
+            android:id="@+id/action_officeDetailsFragment_to_nav_graph_office_booking"
+            app:destination="@id/nav_graph_office_booking"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
+    </fragment>
+    <include app:graph="@navigation/nav_graph_office_booking" />
+</navigation>

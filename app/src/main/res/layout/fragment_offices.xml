@@ -1,28 +1,46 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="kotlin.Unit"/>
+        <import type="kotlin.jvm.functions.Function1" />
+        <import type="com.lovoo.lovoooffice.presentation.landing.fragments.OfficesViewModel" />
+        <import type="com.lovoo.lovoooffice.core.domain.model.Office" />
+        <import type="com.lovoo.lovoooffice.core.domain.model.LovooFact" />
+
+        <variable
+            name="viewModel"
+            type="OfficesViewModel" />
+
+        <variable
+            name="onOfficeClicked"
+            type="Function1&lt;Office, Unit&gt;" />
+
+        <variable
+            name="onLovooFactClicked"
+            type="Function1&lt;LovooFact, Unit&gt;" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Switch
-            android:id="@+id/switch_theme"
-            android:text="Switch Theme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toTopOf="parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_offices"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:officeItems="@{viewModel.uiState.offices}"
+                app:onItemClicked="@{onOfficeClicked}"
+                app:onEndIconClicked="@{onLovooFactClicked}" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

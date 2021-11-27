@@ -2,7 +2,9 @@ package com.lovoo.lovoooffice.di
 
 import android.content.Context
 import com.lovoo.lovoooffice.BuildConfig
-import com.lovoo.lovoooffice.core.data.database.model.office.OfficeDtoMapper
+import com.lovoo.lovoooffice.core.data.database.model.officebooking.OfficeBookingDtoMapper
+import com.lovoo.lovoooffice.core.data.model.lovoofact.LovooFactDtoMapper
+import com.lovoo.lovoooffice.core.data.model.office.OfficeDtoMapper
 import com.lovoo.lovoooffice.core.data.remote.OfficeService
 import dagger.Module
 import dagger.Provides
@@ -61,7 +63,16 @@ object RemoteModule {
 
     @Singleton
     @Provides
-    fun provideOfficeDtoMapper(): OfficeDtoMapper{
-        return OfficeDtoMapper()
+    fun provideLovooFactDtoMapper(): LovooFactDtoMapper{
+        return LovooFactDtoMapper()
+    }
+
+    @Singleton
+    @Provides
+    fun provideOfficeDtoMapper(
+        lovooFactDtoMapper: LovooFactDtoMapper,
+        officeBookingDtoMapper : OfficeBookingDtoMapper
+    ): OfficeDtoMapper{
+        return OfficeDtoMapper(lovooFactDtoMapper, officeBookingDtoMapper)
     }
 }
