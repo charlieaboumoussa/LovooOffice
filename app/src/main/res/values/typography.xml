@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Lovoo.TextAppearance.Body1" parent="@style/TextAppearance.MaterialComponents.Body1">
+        <!--        TODO customize Body1 (16sp)-->
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="fontFamily">?attr/fontRegular</item>
+        <item name="android:fontFamily">?attr/fontRegular</item>
+    </style>
+
+    <style name="Lovoo.TextAppearance.Body2" parent="@style/TextAppearance.MaterialComponents.Body2">
+        <!--        TODO customize Body2 (14sp)-->
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="fontFamily">?attr/fontRegular</item>
+        <item name="android:fontFamily">?attr/fontRegular</item>
+    </style>
+
+    <style name="Lovoo.TextAppearance.Body3" parent="@style/Lovoo.TextAppearance.Body2">
+        <!--        TODO customize Body2 (14sp)-->
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+
+    <style name="Lovoo.TextAppearance.Headline5" parent="@style/TextAppearance.MaterialComponents.Headline5">
+        <!--        TODO customize large (24sp)-->
+        <item name="fontFamily">?attr/fontRegular</item>
+        <item name="android:fontFamily">?attr/fontRegular</item>
+    </style>
+
+    <style name="Lovoo.TextAppearance.Headline6" parent="@style/TextAppearance.MaterialComponents.Headline6">
+        <!--        TODO customize medium (20sp)-->
+        <item name="fontFamily">?attr/fontRegular</item>
+        <item name="android:fontFamily">?attr/fontRegular</item>
+    </style>
+
+    <style name="Lovoo.TextAppearance.Body1.Bold">
+        <!--        TODO customize Body1 (16sp)-->
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="fontFamily">?attr/fontBold</item>
+        <item name="android:fontFamily">?attr/fontBold</item>
+    </style>
+
+    <style name="Lovoo.TextAppearance.Body2.Bold">
+        <!--        TODO customize Body2 (14sp)-->
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="fontFamily">?attr/fontBold</item>
+        <item name="android:fontFamily">?attr/fontBold</item>
+    </style>
+
+    <style name="Lovoo.TextAppearance.Headline5.Bold">
+        <!--        TODO customize large (24sp)-->
+        <item name="fontFamily">?attr/fontBold</item>
+        <item name="android:fontFamily">?attr/fontBold</item>
+    </style>
+
+    <style name="Lovoo.TextAppearance.Headline6.Bold">
+        <!--        TODO customize medium (20sp)-->
+        <item name="fontFamily">?attr/fontBold</item>
+        <item name="android:fontFamily">?attr/fontBold</item>
+    </style>
+
+
+    <style name="Lovoo.TextAppearance.Button" parent="@style/Lovoo.TextAppearance.Body1">
+        <!--        TODO customize primary button style-->
+    </style>
+</resources>

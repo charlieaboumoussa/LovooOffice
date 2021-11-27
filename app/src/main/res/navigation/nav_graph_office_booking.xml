@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_office_booking"
+    app:startDestination="@id/officeBookingFragment">
+    <fragment
+        android:id="@+id/officeBookingFragment"
+        android:name="com.lovoo.lovoooffice.presentation.officebooking.OfficeBookingFragment"
+        android:label="OfficeBookingFragment"
+        tools:layout="@layout/fragment_office_booking">
+        <argument
+            android:name="title"
+            android:defaultValue="@string/office_booking"
+            app:argType="reference" />
+    </fragment>
+</navigation>

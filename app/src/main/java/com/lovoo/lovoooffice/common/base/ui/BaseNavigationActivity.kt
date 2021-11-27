@@ -1,10 +1,11 @@
 package com.lovoo.lovoooffice.common.base.ui
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.View
+import android.view.Menu
+import android.view.MenuItem
 import androidx.annotation.DrawableRes
 import androidx.annotation.NavigationRes
+import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
@@ -89,8 +90,67 @@ abstract class BaseNavigationActivity : BaseActivity() {
         }
     }
 
-    fun setTitle(title: String) {
+    open fun backButtonHandling(arguments: Bundle?, toolbar: Toolbar) {
+        var shouldShowBackButton = false
+        if (arguments != null && arguments.containsKey("shouldShowBackButton")) {
+            arguments.getBoolean("shouldShowBackButton").let {
+                if(it){
+                    toolbar.setNavigationIcon(R.drawable.ic_back_button)
+                    toolbar.setNavigationOnClickListener {
+                        onBackPressed()
+                    }
+                }else{
+                    toolbar.setNavigationIcon(0)
+                    toolbar.setNavigationOnClickListener(null)
+                }
+            }
+        }
+    }
+
+    fun setToolbarTitle(title: String) {
         _binding.materialToolbar.title = title
+    }
+
+    fun setToolbarTitle(@StringRes titleRes: Int) {
+        _binding.materialToolbar.setTitle(titleRes)
+    }
+
+    var _showActionButton = true
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_toolbar, menu)
+        val shareItem: MenuItem = menu.findItem(R.id.actionButton)
+
+        // show the button when some condition is true
+        shareItem.setVisible(_showActionButton)
+        return true
+    }
+
+    fun setToolbarActionButton(listener: (menuItem : MenuItem, fragmentId : Int)->Unit) {
+        _binding.materialToolbar.setOnMenuItemClickListener {
+            listener(it, mCurrentDestination)
+            true
+        }
+    }
+
+    fun showActionButton(){
+        _showActionButton = true
+    }
+
+    fun hideActionButton(){
+        _showActionButton = false
+    }
+
+    fun showBackButton(){
+        _binding.materialToolbar.setNavigationIcon(R.drawable.ic_back_button)
+        _binding.materialToolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+    }
+
+    fun hideBackButton(){
+        _binding.materialToolbar.setNavigationIcon(null)
+        _binding.materialToolbar.setNavigationOnClickListener(null)
     }
 
     fun navigateTo(action: Int) {

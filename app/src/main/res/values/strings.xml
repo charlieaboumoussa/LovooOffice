@@ -1,3 +1,22 @@
 <resources>
 
+    <string name="lovoo_offices">Lovoo Offices</string>
+    <string name="office_information">Office Information</string>
+    <string name="office_level">Office Level</string>
+    <string name="room_number">Room Number</string>
+    <string name="bookings">Bookings</string>
+    <string name="book_office">Book Office</string>
+    <string name="no_bookings_available">No bookings available</string>
+    <string name="office_booking">Office Booking</string>
+    <string name="lovoo_fact">Lovoo Fact</string>
+    <string name="offices">Offices</string>
+    <string name="check_fact">Check Fact</string>
+
+<!--  region  Filters-->
+    <string name="date_time">Date and Time</string>
+    <string name="booking_period">Booking Period</string>
+    <string name="filters">Filters</string>
+    <string name="apply_filters">Apply Filters</string>
+    <string name="clear_filters">Clear Filters</string>
+<!--    end region-->
 </resources>

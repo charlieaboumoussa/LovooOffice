@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="fontRegular" format="reference"/>
+    <attr name="fontBold" format="reference"/>
+
+    <attr format="reference" name="buttonTextAppearance"/>
+    <attr format="reference" name="buttonStyleSecondary"/>
+    <attr format="reference" name="textAppearanceBody3"/>
+    <attr format="reference" name="textAppearanceBoldBody1"/>
+    <attr format="reference" name="textAppearanceBoldBody2"/>
+    <attr format="reference" name="textAppearanceBoldHeadline5"/>
+    <attr format="reference" name="textAppearanceBoldHeadline6"/>
+</resources>
