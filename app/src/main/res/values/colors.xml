@@ -5,6 +5,23 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+    <color name="blue">#2778F5</color>
+    <color name="blue_Op30">#4D2778F5</color>
+    <color name="blue_700">#3D5DCE</color>
+    <color name="yellow">#FFBA32</color>
+    <color name="yellow_100">#FFEBC4</color>
+    <color name="yellow_100_Op30">#4DFFEBC4</color>
+    <color name="fuschia">#F93D59</color>
+    <color name="fuschia_100">#FDC6CE</color>
+    <color name="fuschia_100_Op30">#4DFDC6CE</color>
+    <color name="fuschia_700">#700C69</color>
+    <color name="red">#FF0000</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white_Op30">#4DFFFFFF</color>
+    <color name="grey_gainsboro">#E8E8E8</color>
+    <color name="grey_gainsboro_Op30">#4DE8E8E8</color>
+    <color name="grey_gainsboro_Op60">#99E8E8E8</color>
+
+    <color name="color_default_dialog_background">#52000000</color>
 </resources>

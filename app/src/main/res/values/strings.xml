@@ -1,3 +1,37 @@
 <resources>
 
+    <string name="lovoo_offices">Lovoo Offices</string>
+    <string name="office_information">Office Information</string>
+    <string name="office_level">Office Level</string>
+    <string name="room_number">Room Number</string>
+    <string name="bookings">Bookings</string>
+    <string name="book_office">Book Office</string>
+    <string name="no_bookings_available">No bookings available</string>
+    <string name="office_booking">Office Booking</string>
+    <string name="lovoo_fact">Lovoo Fact</string>
+    <string name="offices">Offices</string>
+    <string name="check_fact">Check Fact</string>
+
+<!--  region  Filters-->
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="filters">Filters</string>
+    <string name="apply_filters">Apply Filters</string>
+    <string name="clear_filters">Clear Filters</string>
+<!--    end region-->
+
+    <!--  region  Error-->
+    <string name="service_error">Service Error</string>
+    <string name="type">Type</string>
+    <string name="department">Department</string>
+    <string name="start_date">Start Date</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
+    <string name="default_error_service">A service error happened. Please contact customer support if this error keeps showing.</string>
+    <string name="reason">Reason</string>
+    <string name="error_field_required">Required</string>
+    <string name="office_already_booked">Office already booked</string>
+    <string name="invalid_dates">Invalid dates</string>
+    <string name="error_failed_book_office">Failed to book office</string>
+    <!--  end region-->
 </resources>

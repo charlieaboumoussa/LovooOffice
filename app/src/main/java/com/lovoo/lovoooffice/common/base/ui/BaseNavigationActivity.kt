@@ -1,15 +1,21 @@
 package com.lovoo.lovoooffice.common.base.ui
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.NavigationRes
+import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import com.lovoo.lovoooffice.R
 import com.lovoo.lovoooffice.databinding.ActivityBaseNavigationBinding
+import com.lovoo.lovoooffice.presentation.common.navigation.NavigationResult
+import kotlin.properties.Delegates
 
 abstract class BaseNavigationActivity : BaseActivity() {
 
@@ -25,13 +31,10 @@ abstract class BaseNavigationActivity : BaseActivity() {
         titleHandling(arguments, _binding.materialToolbar)
     }
 
-    override fun setContentView(layoutResID: Int) {
-        _binding = ActivityBaseNavigationBinding.inflate(layoutInflater)
-        setContentView(_binding.root)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        _binding = ActivityBaseNavigationBinding.inflate(layoutInflater)
+        setContentView(_binding.root)
         mNavHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         mNavController = mNavHostFragment.navController
         mNavGraph = mNavController.navInflater.inflate(getNavGraph())
@@ -91,8 +94,83 @@ abstract class BaseNavigationActivity : BaseActivity() {
         }
     }
 
-    fun setTitle(title: String) {
+    open fun backButtonHandling(arguments: Bundle?, toolbar: Toolbar) {
+        var shouldShowBackButton = false
+        if (arguments != null && arguments.containsKey("shouldShowBackButton")) {
+            arguments.getBoolean("shouldShowBackButton").let {
+                if(it){
+                    toolbar.setNavigationIcon(R.drawable.ic_back_button)
+                    toolbar.setNavigationOnClickListener {
+                        onBackPressed()
+                    }
+                }else{
+                    toolbar.setNavigationIcon(0)
+                    toolbar.setNavigationOnClickListener(null)
+                }
+            }
+        }
+    }
+
+    fun navigateBackWithResult(result: Bundle? = null, destinationId : Int? = null, inclusive : Boolean = false) {
+        val childFragmentManager = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager
+        var backStackListener: FragmentManager.OnBackStackChangedListener by Delegates.notNull()
+        backStackListener = FragmentManager.OnBackStackChangedListener {
+            (childFragmentManager?.fragments?.get(0) as NavigationResult).onNavigationResult(result)
+            childFragmentManager.removeOnBackStackChangedListener(backStackListener)
+        }
+        childFragmentManager?.addOnBackStackChangedListener(backStackListener)
+        if(destinationId != null){
+            getNavController().popBackStack(destinationId, inclusive)
+        }else{
+            getNavController().popBackStack()
+        }
+    }
+
+    fun setToolbarTitle(title: String) {
         _binding.materialToolbar.title = title
+    }
+
+    fun setToolbarTitle(@StringRes titleRes: Int) {
+        _binding.materialToolbar.setTitle(titleRes)
+    }
+
+    fun setToolbarActionButtonListener(listener: () ->Unit) {
+        _binding.action.setOnClickListener {
+            listener()
+        }
+    }
+
+    fun setToolbarActionIcon(@DrawableRes drawableRes: Int) {
+        _binding.action.setImageResource(drawableRes)
+    }
+
+    fun showActionButton(){
+        _binding.action.visibility = View.VISIBLE
+    }
+
+    fun showAndSetFilterNumber(filterNumber : String){
+        _binding.cardViewFilterNumber.visibility = View.VISIBLE
+        _binding.textViewFilterNumber.text = filterNumber
+    }
+
+    fun hideFilterNumber(){
+        _binding.cardViewFilterNumber.visibility = View.GONE
+    }
+
+    fun hideActionButton(){
+        _binding.action.visibility = View.GONE
+    }
+
+    fun showBackButton(){
+        _binding.materialToolbar.setNavigationIcon(R.drawable.ic_back_button)
+        _binding.materialToolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
+    }
+
+    fun hideBackButton(){
+        _binding.materialToolbar.setNavigationIcon(null)
+        _binding.materialToolbar.setNavigationOnClickListener(null)
     }
 
     fun navigateTo(action: Int) {

@@ -1,58 +1,23 @@
 package com.lovoo.lovoooffice.di
 
 import android.content.Context
-import androidx.room.Room
-import com.example.latestmovies.model.database.AppDatabase
 import com.lovoo.lovoooffice.BuildConfig
-import com.lovoo.lovoooffice.core.data.database.dao.movie.OfficeDao
-import com.lovoo.lovoooffice.core.data.remote.OfficesServiceInterface
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import okhttp3.Cache
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
+@Module
+@InstallIn(SingletonComponent::class)
 object AppModule {
 
-    private const val DATABASE_NAME = "DATABASE"
-    private var mDatabase : AppDatabase? = null
-    private var mRetrofit : Retrofit? = null
-
-    fun initializeDatabase(context: Context) {
-        if(mDatabase == null) {
-            mDatabase = Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
-//                .addMigrations()
-                .build()
-        }
-    }
-
-    fun initializeRetrofit(context: Context){
-        mRetrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(
-                OkHttpClient.Builder()
-//                    .addInterceptor { chain ->
-//                        val url = chain
-//                            .request()
-//                            .url()
-//                            .newBuilder()
-//                            .addQueryParameter("api_key", context.getString(R.string.api_key))
-//                            .build()
-//                        chain.proceed(chain.request().newBuilder().url(url).build())
-//                    }
-                    .build()
-            )
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    fun getRetrofit() : Retrofit?{
-        return mRetrofit
-    }
-
-    fun getOfficeDao() : OfficeDao?{
-        return mDatabase?.officeDao()
-    }
-
-    fun getOfficesService() : OfficesServiceInterface?{
-        return mRetrofit?.create(OfficesServiceInterface::class.java)
-    }
 }
