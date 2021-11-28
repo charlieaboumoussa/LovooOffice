@@ -1,0 +1,51 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.LovooOffice" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryVariant">@color/blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">@color/black</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <!-- Background, surface, error colors. -->
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorOnBackground">@color/blue</item>
+
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/blue</item>
+
+        <item name="colorError">@color/red</item>
+        <item name="colorOnError">@color/white</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+        <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">?attr/textAppearanceBody1</item>
+        <item name="toolbarStyle">@style/Lovoo.TextAppearance.Toolbar</item>
+        <item name="cardViewStyle">@style/Lovoo.Style.CardView</item>
+        <item name="materialCardViewStyle">@style/Lovoo.Style.CardView</item>
+        <item name="buttonTextAppearance">@style/Lovoo.TextAppearance.Button</item>
+        <item name="buttonStyle">@style/Lovoo.Style.Button</item>
+        <item name="buttonStyleSecondary">@style/Lovoo.Style.Button.Secondary</item>
+        <item name="materialButtonStyle">@style/Lovoo.Style.Button</item>
+        <item name="circularProgressIndicatorStyle">@style/Lovoo.Style.Progress</item>
+        <item name="progressBarStyle">@style/Lovoo.Style.Progress</item>
+
+        <item name="textAppearanceBody1">@style/Lovoo.TextAppearance.Body1</item>
+        <item name="textAppearanceBody2">@style/Lovoo.TextAppearance.Body2</item>
+        <item name="textAppearanceBody3">@style/Lovoo.TextAppearance.Body3</item>
+        <item name="textAppearanceHeadline5">@style/Lovoo.TextAppearance.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/Lovoo.TextAppearance.Headline6</item>
+        <item name="textAppearanceBoldBody1">@style/Lovoo.TextAppearance.Body1.Bold</item>
+        <item name="textAppearanceBoldBody2">@style/Lovoo.TextAppearance.Body2.Bold</item>
+        <item name="textAppearanceBoldHeadline5">@style/Lovoo.TextAppearance.Headline5.Bold</item>
+        <item name="textAppearanceBoldHeadline6">@style/Lovoo.TextAppearance.Headline6.Bold</item>
+
+        <item name="fontFamily">@font/bambino_regular</item>
+        <item name="android:fontFamily">@font/bambino_regular</item>
+        <item name="fontRegular">@font/bambino_regular</item>
+        <item name="fontBold">@font/bambino_bold</item>
+    </style>
+</resources>

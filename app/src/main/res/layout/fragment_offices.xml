@@ -1,0 +1,58 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="kotlin.Unit" />
+        <import type="kotlin.jvm.functions.Function1" />
+        <import type="com.lovoo.lovoooffice.presentation.landing.fragments.OfficesViewModel" />
+        <import type="com.lovoo.lovoooffice.core.domain.model.Office" />
+        <import type="com.lovoo.lovoooffice.core.domain.model.LovooFact" />
+
+        <variable
+            name="viewModel"
+            type="OfficesViewModel" />
+
+        <variable
+            name="onOfficeClicked"
+            type="Function1&lt;Office, Unit&gt;" />
+
+        <variable
+            name="onLovooFactClicked"
+            type="Function1&lt;LovooFact, Unit&gt;" />
+    </data>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:refreshing="@{viewModel.uiState.isLoading()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_offices"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingVertical="@dimen/padding_xsmall"
+                android:paddingHorizontal="@dimen/padding_xsmall"
+                android:clipToPadding="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:officeItems="@{viewModel.uiState.filteredOffices}"
+                app:onEndIconClicked="@{onLovooFactClicked}"
+                app:onItemClicked="@{onOfficeClicked}" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
