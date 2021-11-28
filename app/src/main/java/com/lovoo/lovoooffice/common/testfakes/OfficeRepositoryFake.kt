@@ -1,4 +1,4 @@
-package com.lovoo.lovoooffice.di
+package com.lovoo.lovoooffice.common.testfakes
 
 import com.lovoo.lovoooffice.core.data.database.dao.OfficeBookingDao
 import com.lovoo.lovoooffice.core.data.database.dao.OfficeFilterDao
