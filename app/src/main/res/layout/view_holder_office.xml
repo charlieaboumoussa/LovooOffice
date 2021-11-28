@@ -1,44 +1,50 @@
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="office"
             type="com.lovoo.lovoooffice.core.domain.model.Office" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_small">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/imageView_lovoo_fact"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_fact"
-                android:visibility="@{office.lovooFact == null ? View.GONE : View.VISIBLE}"
-                app:layout_constraintBottom_toTopOf="@+id/textView_check_fact"
-                app:layout_constraintEnd_toEndOf="@+id/textView_check_fact"
-                app:layout_constraintStart_toStartOf="@+id/textView_check_fact" />
-
-            <TextView
-                android:id="@+id/textView_check_fact"
-                style="?attr/textAppearanceBody2"
+            <LinearLayout
+                android:id="@+id/layout_lovoo_fact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="@{office.lovooFact == null ? View.GONE : View.VISIBLE}"
                 android:layout_marginEnd="@dimen/margin_small"
                 android:layout_marginBottom="@dimen/margin_small"
-                android:text="@string/check_fact"
-                android:textSize="10sp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="@{office.lovooFact == null ? View.GONE : View.VISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView_lovoo_fact"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_fact" />
+
+                <TextView
+                    android:id="@+id/textView_check_fact"
+                    style="?attr/textAppearanceBoldHeadline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/check_fact"
+                    android:textSize="11sp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textView_title"
@@ -66,24 +72,24 @@
                 android:layout_marginVertical="@dimen/margin_small"
                 android:ellipsize="end"
                 android:text="@{@string/office_level + ':'}"
-                tools:text="@string/office_level"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_title" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_title"
+                tools:text="@string/office_level" />
 
             <TextView
                 android:id="@+id/textView_office_level"
                 style="?attr/textAppearanceBody2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:setTextWithFallback="@{office.officeLevel.toString()}"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView_label_office_level"
-                app:layout_constraintEnd_toStartOf="@+id/textView_check_fact"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:setTextWithFallback="@{office.officeLevel.toString()}"
                 tools:text="1" />
 
             <TextView
@@ -91,29 +97,28 @@
                 style="?attr/textAppearanceBoldBody2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_small"
                 android:layout_marginVertical="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:ellipsize="end"
                 android:text="@{@string/room_number + ':'}"
-                tools:text="@string/room_number"
                 app:layout_constrainedWidth="true"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView_room_number"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView_label_office_level"
-                app:layout_constraintTop_toBottomOf="@+id/textView_label_office_level" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_label_office_level"
+                tools:text="@string/room_number" />
 
             <TextView
                 android:id="@+id/textView_room_number"
                 style="?attr/textAppearanceBody2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:setTextWithFallback="@{office.roomNumber}"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView_label_room_number"
-                app:layout_constraintEnd_toStartOf="@+id/textView_check_fact"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:setTextWithFallback="@{office.roomNumber}"
                 tools:text="1" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -121,9 +126,38 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="160dp" />
+                app:layout_constraintGuide_begin="175dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipType"
+                style="@style/Lovoo.Style.Chip.Yellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                android:layout_marginVertical="@dimen/margin_small"
+                android:clickable="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_label_room_number"
+                app:setTextWithFallback="@{office.type}"
+                tools:text="type" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipDepartment"
+                android:textAppearance="@style/Lovoo.TextAppearance.Body1"
+                style="@style/Lovoo.Style.Chip.Fuschia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_xsmall"
+                android:clickable="false"
+                app:layout_constraintBaseline_toBaselineOf="@+id/chipType"
+                app:layout_constraintEnd_toStartOf="@+id/layout_lovoo_fact"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/chipType"
+                app:setTextWithFallback="@{office.department}"
+                tools:text="department" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

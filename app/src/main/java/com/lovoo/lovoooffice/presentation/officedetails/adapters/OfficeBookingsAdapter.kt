@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lovoo.lovoooffice.common.base.adapters.BaseViewHolder
 import com.lovoo.lovoooffice.core.domain.model.OfficeBooking
@@ -56,7 +57,7 @@ fun getOrCreateAdapter(recyclerView: RecyclerView): OfficeBookingsAdapter {
     return if (recyclerView.adapter != null && recyclerView.adapter is OfficeBookingsAdapter) {
         recyclerView.adapter as OfficeBookingsAdapter
     } else {
-        recyclerView.layoutManager = GridLayoutManager(recyclerView.context, 2,GridLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = LinearLayoutManager(recyclerView.context,LinearLayoutManager.VERTICAL, false)
         val adapter = OfficeBookingsAdapter()
         recyclerView.adapter = adapter
         adapter

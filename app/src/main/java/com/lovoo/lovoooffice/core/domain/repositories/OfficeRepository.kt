@@ -7,18 +7,15 @@ import kotlinx.coroutines.flow.Flow
 
 interface OfficeRepository {
 
-    interface IGetOfficeFilters{
-        fun onGetFiltersSuccess(filters : List<OfficeFilterDto>)
-        fun onGetFiltersFailed(errorMessage : String)
-    }
-
     suspend fun getOffices(): List<OfficeDto>
 
     suspend fun getOfficeBookings(): List<OfficeBookingDto>
 
-    suspend fun getOfficeFilters(getOfficeFiltersInterface: IGetOfficeFilters)
+    suspend fun getRemoteOfficeFilters() : List<OfficeFilterDto>
 
     fun flowOfficeBookings(): Flow<List<OfficeBookingDto>>
+
+    fun flowOfficeBookingsByOfficeId(officeId: String): Flow<List<OfficeBookingDto>>
 
     fun flowOfficeFilters(): Flow<List<OfficeFilterDto>>
 

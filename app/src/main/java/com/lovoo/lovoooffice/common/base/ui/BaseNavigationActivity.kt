@@ -3,15 +3,19 @@ package com.lovoo.lovoooffice.common.base.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.NavigationRes
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import com.lovoo.lovoooffice.R
 import com.lovoo.lovoooffice.databinding.ActivityBaseNavigationBinding
+import com.lovoo.lovoooffice.presentation.common.navigation.NavigationResult
+import kotlin.properties.Delegates
 
 abstract class BaseNavigationActivity : BaseActivity() {
 
@@ -107,6 +111,21 @@ abstract class BaseNavigationActivity : BaseActivity() {
         }
     }
 
+    fun navigateBackWithResult(result: Bundle? = null, destinationId : Int? = null, inclusive : Boolean = false) {
+        val childFragmentManager = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager
+        var backStackListener: FragmentManager.OnBackStackChangedListener by Delegates.notNull()
+        backStackListener = FragmentManager.OnBackStackChangedListener {
+            (childFragmentManager?.fragments?.get(0) as NavigationResult).onNavigationResult(result)
+            childFragmentManager.removeOnBackStackChangedListener(backStackListener)
+        }
+        childFragmentManager?.addOnBackStackChangedListener(backStackListener)
+        if(destinationId != null){
+            getNavController().popBackStack(destinationId, inclusive)
+        }else{
+            getNavController().popBackStack()
+        }
+    }
+
     fun setToolbarTitle(title: String) {
         _binding.materialToolbar.title = title
     }
@@ -115,30 +134,31 @@ abstract class BaseNavigationActivity : BaseActivity() {
         _binding.materialToolbar.setTitle(titleRes)
     }
 
-    var _showActionButton = true
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu_toolbar, menu)
-        val shareItem: MenuItem = menu.findItem(R.id.actionButton)
-
-        // show the button when some condition is true
-        shareItem.setVisible(_showActionButton)
-        return true
-    }
-
-    fun setToolbarActionButton(listener: (menuItem : MenuItem, fragmentId : Int)->Unit) {
-        _binding.materialToolbar.setOnMenuItemClickListener {
-            listener(it, mCurrentDestination)
-            true
+    fun setToolbarActionButtonListener(listener: () ->Unit) {
+        _binding.action.setOnClickListener {
+            listener()
         }
     }
 
+    fun setToolbarActionIcon(@DrawableRes drawableRes: Int) {
+        _binding.action.setImageResource(drawableRes)
+    }
+
     fun showActionButton(){
-        _showActionButton = true
+        _binding.action.visibility = View.VISIBLE
+    }
+
+    fun showAndSetFilterNumber(filterNumber : String){
+        _binding.cardViewFilterNumber.visibility = View.VISIBLE
+        _binding.textViewFilterNumber.text = filterNumber
+    }
+
+    fun hideFilterNumber(){
+        _binding.cardViewFilterNumber.visibility = View.GONE
     }
 
     fun hideActionButton(){
-        _showActionButton = false
+        _binding.action.visibility = View.GONE
     }
 
     fun showBackButton(){

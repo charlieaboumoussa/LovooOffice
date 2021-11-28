@@ -25,9 +25,9 @@ android {
         targetSdk 31
         versionCode 1
         versionName "1.0"
-        buildConfigField "String", "BASE_URL", '"https://europe-west1-lv-trialwork.cloudfunctions.net/"'
+        buildConfigField "String", "BASE_URL", '"PLACE BASE URL HERE"'
         //TODO please add Basic auth. ex: Basic d5g32b9UfmdsaDCdAAS8aS26d87hGHjadFH==
-        buildConfigField "String", "BASIC_TOKEN", '"Basic bG92b29UcmlhbFVzZXI6bG92b28jMjAyMQ=="'
+        buildConfigField "String", "BASIC_TOKEN", '"PLACE TOKEN HERE"'
 
         buildConfigField "int", "READ_TIMEOUT", "30"
         buildConfigField "int", "WRITE_TIMEOUT", "30"
@@ -166,7 +166,8 @@ dependencies {
 
 //    Hilt Test
     testImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
-    kaptTest "com.google.dagger:hilt-android-compiler:2.38.1"
+    kaptTest "com.google.dagger:hilt-android-compiler:2.40.2"
+
 //    //PowerMockito
 //    testImplementation "org.powermock:powermock-module-junit4:1.7.4"
 //    testImplementation "org.powermock:powermock-module-junit4-rule:1.7.4"

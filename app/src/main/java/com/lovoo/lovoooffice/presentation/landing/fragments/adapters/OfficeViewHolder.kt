@@ -4,7 +4,6 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.lovoo.lovoooffice.common.base.adapters.BaseViewHolder
 import com.lovoo.lovoooffice.core.domain.model.Office
-import com.lovoo.lovoooffice.core.domain.model.OfficeBooking
 import com.lovoo.lovoooffice.databinding.ViewHolderOfficeBinding
 
 class OfficeViewHolder(val viewBinding : ViewHolderOfficeBinding)
@@ -15,7 +14,7 @@ class OfficeViewHolder(val viewBinding : ViewHolderOfficeBinding)
     }
 
     fun setOnEndIconClicked(listener : ()->Unit){
-        viewBinding.imageViewLovooFact.setOnClickListener {
+        viewBinding.layoutLovooFact.setOnClickListener {
             listener()
         }
     }

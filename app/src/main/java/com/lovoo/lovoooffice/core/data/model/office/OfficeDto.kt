@@ -26,7 +26,4 @@ class OfficeDto {
 
     @SerializedName("lovooFact")
     var lovooFact: LovooFactDto? = null
-
-    @Expose(serialize = false)
-    var bookings: ArrayList<OfficeBookingDto>? = null
 }

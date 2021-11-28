@@ -20,23 +20,9 @@ class GetOfficesUseCase @Inject constructor(
 
     operator fun invoke(): Flow<Resource<List<Office>>> = baseFlow {
         it.emit(Resource.Loading())
-        val officeBookings = _repository.getOfficeBookings()
-        val offices = arrayListOf<Office>()
-        _repository.getOffices().forEach { officeDto->
-            mergeBookingsWithOffice(officeBookings, officeDto)
-            offices.add(_officeDtoMapper.mapToDomainModel(officeDto))
+        val offices = _repository.getOffices().map { officeDto->
+            _officeDtoMapper.mapToDomainModel(officeDto)
         }
         it.emit(Resource.Success(offices))
-    }
-
-    fun mergeBookingsWithOffice(officeBookings: List<OfficeBookingDto>, officeDto: OfficeDto){
-        officeBookings.forEach {
-            if(it.officeId == officeDto.id){
-                if(officeDto.bookings == null){
-                    officeDto.bookings = arrayListOf()
-                }
-                officeDto.bookings?.add(it)
-            }
-        }
     }
 }

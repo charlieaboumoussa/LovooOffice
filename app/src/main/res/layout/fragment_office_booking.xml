@@ -2,10 +2,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="com.lovoo.lovoooffice.presentation.landing.fragments.OfficesViewModel"/>
+        <import type="com.lovoo.lovoooffice.presentation.officebooking.OfficeBookingViewModel"/>
         <variable
             name="viewModel"
-            type="OfficesViewModel" />
+            type="OfficeBookingViewModel" />
     </data>
     <ScrollView
         android:layout_width="match_parent"
@@ -15,16 +15,119 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_start_date"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/start_date"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_start_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:setDateTextOrError="@{viewModel.uiState.startDateLong}"
+                    app:formatter="@{viewModel.uiState.simpleDateFormat}"
+                    android:inputType="none"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_input_layout_start_date">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_start_time"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:layout_marginEnd="@dimen/margin_xsmall"
+                    android:hint="@string/start_time"
+                    android:layout_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_input_layout_start_date_and_time">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/dropdown_start_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:parentLayout="@{textInputLayoutStartTime}"
+                        app:setDateTextOrError="@{viewModel.uiState.startTimeLong}"
+                        app:formatter="@{viewModel.uiState.simpleTimeFormat}"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_end_time"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/margin_xsmall"
+                    android:hint="@string/end_time"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/text_input_layout_start_time"
+                    app:layout_constraintTop_toBottomOf="@+id/text_input_layout_start_date_and_time">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/dropdown_end_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:parentLayout="@{textInputLayoutEndTime}"
+                        app:setDateTextOrError="@{viewModel.uiState.endTimeLong}"
+                        app:formatter="@{viewModel.uiState.simpleTimeFormat}"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_reason"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/reason"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_time">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editText_reason"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.uiState.reason}"
+                    app:parentLayout="@{textInputLayoutReason}"
+                    app:setTextOrError="@{viewModel.uiState.reason}"
+                    android:inputType="textCapSentences"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/materialButton"
+                android:id="@+id/materialButton_book_office"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_medium"
                 android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_large"
                 android:text="@string/book_office"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_input_layout_reason"
+                app:layout_constraintVertical_bias="1.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

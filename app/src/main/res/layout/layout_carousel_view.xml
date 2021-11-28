@@ -10,7 +10,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:attachTabLayout="@{tabLayout}"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="H,1.8:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -19,12 +18,17 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="@dimen/margin_xsmall"
+            app:layout_constraintTop_toBottomOf="@+id/viewPager2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:background="@android:color/transparent"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"
+            app:tabMaxWidth="24dp"
+            app:tabPadding="@dimen/padding_xsmall"
             app:tabBackground="@drawable/selector_carousel_indicator" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

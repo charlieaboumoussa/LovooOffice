@@ -9,11 +9,12 @@ class OfficeBookingDtoMapper : DomainMapper<OfficeBookingDto, OfficeBooking> {
         return OfficeBooking().apply {
             this.id = model.id
             this.officeId = model.officeId
-            this.bookingReason = model.bookingReason
-            this.bookingDate = model.bookingDate
-            this.bookingPeriod = model.bookingPeriod
-            val hours = TimeUnit.MILLISECONDS.toHours(model.bookingPeriod) % 24
-            val minutes = TimeUnit.MILLISECONDS.toMinutes(model.bookingPeriod) % 60
+            this.reason = model.reason
+            this.startDate = model.startDate
+            this.startTime = model.startTime
+            this.endTime = model.endTime
+            val hours = TimeUnit.MILLISECONDS.toHours(model.startDate - model.endTime) % 24
+            val minutes = TimeUnit.MILLISECONDS.toMinutes(model.startDate - model.endTime) % 60
             this.displayBookingPeriod = String.format("%d hr%s, %d min%s",
                 hours,
                 if(hours > 1){
@@ -35,8 +36,10 @@ class OfficeBookingDtoMapper : DomainMapper<OfficeBookingDto, OfficeBooking> {
         return OfficeBookingDto().apply {
             this.id = domainModel.id
             this.officeId = domainModel.officeId
-            this.bookingDate = domainModel.bookingDate
-            this.bookingPeriod = domainModel.bookingPeriod
+            this.reason = domainModel.reason
+            this.startDate = domainModel.startDate
+            this.startTime = domainModel.startTime
+            this.endTime = domainModel.endTime
         }
     }
 }

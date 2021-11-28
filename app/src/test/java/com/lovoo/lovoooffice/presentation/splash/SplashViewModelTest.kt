@@ -1,17 +1,23 @@
 package com.lovoo.lovoooffice.presentation.splash
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.lovoo.lovoooffice.core.domain.repositories.OfficeRepository
+import com.lovoo.lovoooffice.core.domain.usecases.office.GetOfficeFiltersUseCase
+import dagger.hilt.android.testing.BindValue
+import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.HiltTestApplication
-import org.junit.Assert.*
-
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.core.Is.`is`
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.mock
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.LooperMode
+import javax.inject.Inject
 
 /*
 * Why make the view model test a local test?
@@ -29,19 +35,35 @@ import org.robolectric.annotation.LooperMode
 @LooperMode(LooperMode.Mode.PAUSED)
 class SplashViewModelTest {
 
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+
+    @Inject
+    lateinit var useCase: GetOfficeFiltersUseCase
+
+    @BindValue
+    var _viewModel : SplashViewModel? = null
+
     @Before
     fun setUp() {
+        hiltRule.inject()
+        _viewModel = SplashViewModel(useCase)
     }
 
     @After
     fun tearDown() {
+        _viewModel = null
     }
 
     @Test
-    fun getUiActions() {
-    }
+    fun getOfficeFilters_noInput_officeFiltersList() {
+        //GIVEN app starts
 
-    @Test
-    fun getOfficeFilters() {
+        //WHEN get office filters is launched
+        _viewModel?.getOfficeFilters()
+
+        //THEN app should start
+        val uiActions = _viewModel?.uiActions
+        assertThat(uiActions?.value?.first, `is`(NavFlow.START_APP))
     }
 }

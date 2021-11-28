@@ -21,12 +21,6 @@ class OfficeDtoMapper @Inject constructor(
             model.lovooFact?.let {
                 this.lovooFact = _lovooFactDtoMapper.mapToDomainModel(it)
             }
-            model.bookings?.let {
-                this.bookings = ArrayList(
-                    it.map {
-                        _officeBookingDtoMapper.mapToDomainModel(it)
-                    })
-            }
         }
     }
 
@@ -40,12 +34,6 @@ class OfficeDtoMapper @Inject constructor(
             this.officeLevel = domainModel.officeLevel
             domainModel.lovooFact?.let {
                 this.lovooFact = _lovooFactDtoMapper.mapFromDomainModel(it)
-            }
-            domainModel.bookings?.let {
-                this.bookings = ArrayList(
-                    it.map {
-                        _officeBookingDtoMapper.mapFromDomainModel(it)
-                    })
             }
         }
     }
