@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_lovoo_fact"
+    app:startDestination="@id/lovooFactFragment">
+    <argument
+        android:name="lovooFact"
+        app:argType="com.lovoo.lovoooffice.core.domain.model.LovooFact" />
+    <fragment
+        android:id="@+id/lovooFactFragment"
+        android:name="com.lovoo.lovoooffice.presentation.lovoofact.LovooFactFragment"
+        android:label="LovooFactFragment"
+        tools:layout="@layout/fragment_lovoo_fact">
+        <argument
+            android:name="title"
+            android:defaultValue="@string/lovoo_fact"
+            app:argType="reference" />
+        <argument
+            android:name="lovooFact"
+            app:argType="com.lovoo.lovoooffice.core.domain.model.LovooFact" />
+    </fragment>
+</navigation>
