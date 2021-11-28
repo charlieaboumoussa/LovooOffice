@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.lovoo.lovoooffice.common.base.ui.BaseFragment
+import com.lovoo.lovoooffice.common.base.viewmodels.BaseViewModel
 import com.lovoo.lovoooffice.databinding.FragmentCarouselItemBinding
 import com.lovoo.lovoooffice.presentation.common.views.carousel.model.BaseCarouselItem
 import com.lovoo.lovoooffice.presentation.common.views.carousel.model.ImageCarouselItem
@@ -37,7 +38,9 @@ class CarouselItemFragment(private val carouselItem : BaseCarouselItem) : BaseFr
         return _binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreatedBase(view: View, savedInstanceState: Bundle?) {
 
     }
+
+    override fun attachViewModel(): BaseViewModel? = null
 }

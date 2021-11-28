@@ -12,5 +12,5 @@ interface OfficeService {
     suspend fun getLovooOffices(): List<OfficeDto>
 
     @OPTIONS("lovooOffice")
-    suspend fun getLovooOfficesFilters(): Call<JsonElement>
+    suspend fun getLovooOfficesFilters(): JsonElement
 }

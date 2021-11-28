@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.navArgs
 import com.lovoo.lovoooffice.common.base.ui.BaseFragment
+import com.lovoo.lovoooffice.common.base.viewmodels.BaseViewModel
 import com.lovoo.lovoooffice.databinding.FragmentLovooFactBinding
 import com.lovoo.lovoooffice.databinding.FragmentOfficesBinding
 import com.lovoo.lovoooffice.presentation.officedetails.OfficeDetailsFragmentArgs
@@ -18,6 +19,8 @@ class LovooFactFragment : BaseFragment() {
     private lateinit var _binding: FragmentLovooFactBinding
     private val _navArgs: LovooFactFragmentArgs by navArgs()
 
+    override fun attachViewModel(): BaseViewModel? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,5 +30,9 @@ class LovooFactFragment : BaseFragment() {
         _binding.setLifecycleOwner(this)
         _binding.lovooFact = _navArgs.lovooFact
         return _binding.root
+    }
+
+    override fun onViewCreatedBase(view: View, savedInstanceState: Bundle?) {
+
     }
 }

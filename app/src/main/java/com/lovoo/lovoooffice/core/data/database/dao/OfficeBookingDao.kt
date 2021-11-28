@@ -19,6 +19,9 @@ interface OfficeBookingDao : BaseDao<OfficeBookingDto> {
     @Query("SELECT * FROM OFFICE_BOOKING")
     fun flowOfficeBookings(): Flow<List<OfficeBookingDto>>
 
+    @Query("SELECT * FROM OFFICE_BOOKING WHERE OFFICE_ID = :officeId")
+    fun flowOfficeBookingsByOfficeId(officeId : String): Flow<List<OfficeBookingDto>>
+
     @Query("DELETE FROM OFFICE_BOOKING WHERE OFFICE_ID = :id")
     suspend fun deleteBookingById(id : String)
 

@@ -9,6 +9,5 @@ data class Office(
     var type: String? = null,
     var roomNumber: String? = null,
     var officeLevel: Int? = null,
-    var lovooFact: LovooFact? = null,
-    var bookings: ArrayList<OfficeBooking>? = null,
+    var lovooFact: LovooFact? = null
 ): Serializable

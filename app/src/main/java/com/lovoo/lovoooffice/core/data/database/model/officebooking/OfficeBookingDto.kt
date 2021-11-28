@@ -8,17 +8,20 @@ import androidx.room.PrimaryKey
 class OfficeBookingDto {
 
     @PrimaryKey(autoGenerate = true)
-    var id: Int = -1
+    var id: Int = 0
 
     @ColumnInfo(name = "OFFICE_ID")
     var officeId: String = ""
 
-    @ColumnInfo(name = "BOOKING_REASON")
-    var bookingReason: String = ""
+    @ColumnInfo(name = "REASON")
+    var reason: String = ""
 
-    @ColumnInfo(name = "BOOKING_DATE")
-    var bookingDate: Long = 0L
+    @ColumnInfo(name = "START_DATE")
+    var startDate: Long = 0L
 
-    @ColumnInfo(name = "BOOKING_PERIOD")
-    var bookingPeriod: Long = 0L
+    @ColumnInfo(name = "START_TIME")
+    var startTime: Long = 0L
+
+    @ColumnInfo(name = "END_TIME")
+    var endTime: Long = 0L
 }

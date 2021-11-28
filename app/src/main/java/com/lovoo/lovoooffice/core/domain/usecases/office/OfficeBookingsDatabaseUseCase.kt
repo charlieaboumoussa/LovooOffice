@@ -6,12 +6,13 @@ import com.lovoo.lovoooffice.core.domain.model.OfficeBooking
 import com.lovoo.lovoooffice.core.domain.repositories.OfficeRepository
 import com.lovoo.lovoooffice.core.domain.usecases.BaseUseCase
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class OfficeBookingsDatabaseUseCase @Inject constructor(
     private val _repository: OfficeRepository,
     private val _officeBookingDtoMapper: OfficeBookingDtoMapper,
-): BaseUseCase<List<OfficeBooking>>() {
+): BaseUseCase<Boolean>() {
 
     sealed class BookingsDatabaseOperation(val data : OfficeBooking){
         class Insert(booking : OfficeBooking) : BookingsDatabaseOperation(booking)
@@ -20,7 +21,7 @@ class OfficeBookingsDatabaseUseCase @Inject constructor(
 
     override fun useCaseName(): String = "OfficeBookingsDatabaseUseCase"
 
-    operator fun invoke(databaseOperation : BookingsDatabaseOperation): Flow<Resource<List<OfficeBooking>>> = baseFlow { baseFlow->
+    operator fun invoke(databaseOperation : BookingsDatabaseOperation): Flow<Resource<Boolean>> = baseFlow { baseFlow->
         val bookingDto = _officeBookingDtoMapper.mapFromDomainModel(databaseOperation.data)
         when(databaseOperation){
             is BookingsDatabaseOperation.Insert->{
@@ -30,6 +31,7 @@ class OfficeBookingsDatabaseUseCase @Inject constructor(
                 _repository.deleteOfficeBooking(bookingDto.officeId)
             }
         }
+        baseFlow.emit(Resource.Success(true))
     }
 
 }

@@ -4,22 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
-import com.lovoo.lovoooffice.R
 import com.lovoo.lovoooffice.common.base.ui.BaseFragment
 import com.lovoo.lovoooffice.common.base.ui.BaseNavigationActivity
+import com.lovoo.lovoooffice.common.base.viewmodels.BaseViewModel
 import com.lovoo.lovoooffice.databinding.FragmentOfficesBinding
+import com.lovoo.lovoooffice.presentation.common.navigation.NavigationResult
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
-class OfficesFragment : BaseFragment() {
+class OfficesFragment : BaseFragment(), NavigationResult {
 
     private lateinit var _binding: FragmentOfficesBinding
-    private val _viewModel: OfficesViewModel by navGraphViewModels(R.id.nav_graph_landing, {defaultViewModelProviderFactory})
+    private val _viewModel: OfficesViewModel by activityViewModels()
+
+    override fun attachViewModel(): BaseViewModel = _viewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,13 +36,16 @@ class OfficesFragment : BaseFragment() {
         return getBindingPersistentView(_binding.root)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreatedBase(view: View, savedInstanceState: Bundle?) {
         if (hasInitializedRootView.compareAndSet(false, true)) {
             setupUI()
+            _viewModel.getOffices()
         }
+        _viewModel.proceedWithUiAction(NavFlow.SHOW_APPLIED_FILTERS)
     }
 
     private fun setupUI(){
+        observeUiActions()
         setupViewListeners()
     }
 
@@ -53,32 +60,38 @@ class OfficesFragment : BaseFragment() {
         }
 
         _binding.swipeRefreshLayout.setOnRefreshListener {
-            _binding.swipeRefreshLayout.isRefreshing = false
             _viewModel.getOffices()
         }
 
-        (requireActivity() as BaseNavigationActivity).setToolbarActionButton({menuItem, fragmentId->
-            when(menuItem.itemId){
-                R.id.actionButton->{
-                    menuItem.setIcon(R.drawable.ic_carousel_indicator_enabled)
-                    val navAction = OfficesFragmentDirections.actionOfficesFragmentToNavGraphFilters()
-                    findNavController().navigate(navAction)
-                }
-                else->{
-                    menuItem.setIcon(null)
-                }
-            }
-        })
+        (requireActivity() as BaseNavigationActivity).setToolbarActionButtonListener{
+            _viewModel.proceedWithUiAction(NavFlow.DEFAULT)
+            val navAction = OfficesFragmentDirections.actionOfficesFragmentToNavGraphFilters()
+            findNavController().navigate(navAction)
+        }
     }
 
     private fun observeUiActions(){
         lifecycleScope.launch {
-            _viewModel.uiActions.collect {
+            _viewModel.uiActions.collectLatest{
                 val uiState = it.second
                 when(it.first){
-
+                    NavFlow.SHOW_APPLIED_FILTERS,
+                    NavFlow.APPLY_FILTERS,
+                    NavFlow.CLEAR_FILTERS->{
+                        val filtersNumber = uiState.appliedFilters.size
+                        if(uiState.appliedFilters.size > 0){
+                            (requireActivity() as BaseNavigationActivity).showAndSetFilterNumber(filtersNumber.toString())
+                        }else{
+                            (requireActivity() as BaseNavigationActivity).hideFilterNumber()
+                        }
+                    }
+                    else->{}
                 }
             }
         }
+    }
+
+    override fun onNavigationResult(result: Bundle?) {
+        _viewModel.filterOffices()
     }
 }

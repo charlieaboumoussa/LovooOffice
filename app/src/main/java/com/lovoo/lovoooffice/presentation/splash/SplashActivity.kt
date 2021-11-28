@@ -1,10 +1,12 @@
 package com.lovoo.lovoooffice.presentation.splash
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.lovoo.lovoooffice.common.base.ui.BaseActivity
+import com.lovoo.lovoooffice.common.base.viewmodels.BaseViewModel
 import com.lovoo.lovoooffice.databinding.ActivitySplashBinding
 import com.lovoo.lovoooffice.presentation.landing.LandingActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,11 +16,14 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashActivity : BaseActivity() {
 
     private lateinit var _binding: ActivitySplashBinding
     private val _viewModel : SplashViewModel by viewModels()
+
+    override fun attachViewModel(): BaseViewModel = _viewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

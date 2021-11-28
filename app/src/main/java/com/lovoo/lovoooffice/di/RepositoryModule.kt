@@ -22,6 +22,6 @@ object RepositoryModule {
         officeDao: OfficeBookingDao,
         officeFilterDao: OfficeFilterDao
     ): OfficeRepository{
-        return OfficeRepositoryImpl(officeService, officeDao, officeFilterDao)
+        return OfficeRepositoryFake(officeService, officeDao, officeFilterDao)
     }
 }

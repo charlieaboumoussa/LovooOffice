@@ -29,11 +29,11 @@ class CarouselView @JvmOverloads constructor(
 
 @BindingAdapter("carouselItems")
 fun setCarouselItems(carousel : CarouselView, items : List<String>?){
-    setCarouselViewPagerItems(carousel.binding.viewPager2, items)
+    setCarouselViewPagerItems(carousel.binding.viewPager2, items, carousel.binding.tabLayout)
 }
 
 @BindingAdapter("carouselViewPagerItems", "attachTabLayout", requireAll = false)
-fun setCarouselViewPagerItems(viewPager : ViewPager2, items : List<String>?, tabLayout: TabLayout? = null){
+fun setCarouselViewPagerItems(viewPager : ViewPager2, items : List<String>?, tabLayout: TabLayout?){
     items?.let {
         val viewPagerAdapter = getOrCreateAdapter(viewPager)
         it.forEachIndexed { index, item->

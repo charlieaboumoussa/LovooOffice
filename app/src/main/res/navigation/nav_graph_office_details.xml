@@ -5,6 +5,9 @@
     android:id="@+id/nav_graph_office_details"
     app:startDestination="@id/officeDetailsFragment">
 
+    <include app:graph="@navigation/nav_graph_office_booking" />
+    <include app:graph="@navigation/nav_graph_lovoo_fact" />
+
     <argument
         android:name="office"
         app:argType="com.lovoo.lovoooffice.core.domain.model.Office" />
@@ -26,7 +29,22 @@
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"/>
+            app:popExitAnim="@anim/fragment_fade_exit">
+            <argument
+                android:name="office"
+                app:argType="com.lovoo.lovoooffice.core.domain.model.Office" />
+        </action>
+
+        <action
+            android:id="@+id/action_officeDetailsFragment_to_nav_nav_graph_lovoo_fact"
+            app:destination="@id/nav_graph_lovoo_fact"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit">
+            <argument
+                android:name="lovooFact"
+                app:argType="com.lovoo.lovoooffice.core.domain.model.LovooFact" />
+        </action>
     </fragment>
-    <include app:graph="@navigation/nav_graph_office_booking" />
 </navigation>

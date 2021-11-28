@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.lovoo.lovoooffice.common.base.ui.BaseFragment
+import com.lovoo.lovoooffice.common.base.viewmodels.BaseViewModel
 import com.lovoo.lovoooffice.databinding.FragmentOfficeDetailsBinding
 import com.lovoo.lovoooffice.presentation.landing.fragments.OfficesFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +19,8 @@ class OfficeDetailsFragment : BaseFragment() {
     private lateinit var _binding: FragmentOfficeDetailsBinding
     private val _viewModel: OfficeDetailsViewModel by viewModels()
     private val _navArgs: OfficeDetailsFragmentArgs by navArgs()
+
+    override fun attachViewModel(): BaseViewModel = _viewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,10 +33,14 @@ class OfficeDetailsFragment : BaseFragment() {
         return _binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreatedBase(view: View, savedInstanceState: Bundle?) {
         _viewModel.setOfficeDetails(_navArgs.office)
+        _binding.onLovooFactClicked = {
+            val navAction = OfficeDetailsFragmentDirections.actionOfficeDetailsFragmentToNavNavGraphLovooFact(it)
+            findNavController().navigate(navAction)
+        }
         _binding.materialButtonBookOffice.setOnClickListener {
-            val navAction = OfficeDetailsFragmentDirections.actionOfficeDetailsFragmentToNavGraphOfficeBooking()
+            val navAction = OfficeDetailsFragmentDirections.actionOfficeDetailsFragmentToNavGraphOfficeBooking(_navArgs.office)
             findNavController().navigate(navAction)
         }
     }

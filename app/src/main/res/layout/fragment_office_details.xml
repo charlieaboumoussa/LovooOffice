@@ -3,15 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View"/>
+        <import type="kotlin.Unit" />
+        <import type="kotlin.jvm.functions.Function1" />
         <import type="com.lovoo.lovoooffice.presentation.officedetails.OfficeDetailsViewModel"/>
+        <import type="com.lovoo.lovoooffice.core.domain.model.LovooFact" />
         <variable
             name="viewModel"
             type="OfficeDetailsViewModel" />
+
+        <variable
+            name="onLovooFactClicked"
+            type="Function1&lt;LovooFact, Unit&gt;" />
     </data>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -21,17 +29,17 @@
                 style="?attr/textAppearanceBoldHeadline5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.uiState.office.name}"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_small"
                 android:autoSizeTextType="uniform"
                 android:lines="1"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginHorizontal="@dimen/margin_small"
+                android:text="@{viewModel.uiState.office.name}"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Title"/>
+                tools:text="Title" />
 
             <TextView
                 android:id="@+id/textView_label_office_level"
@@ -42,21 +50,21 @@
                 android:layout_marginVertical="@dimen/margin_small"
                 android:ellipsize="end"
                 android:text="@{@string/office_level + ':'}"
-                tools:text="@string/office_level"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_title" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_title"
+                tools:text="@string/office_level" />
 
             <TextView
                 android:id="@+id/textView_office_level"
                 style="?attr/textAppearanceBody3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constrainedWidth="true"
                 android:layout_marginStart="@dimen/margin_xsmall"
+                app:setTextWithFallback="@{viewModel.uiState.office.officeLevel.toString()}"
+                app:layout_constrainedWidth="true"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView_label_office_level"
                 app:layout_constraintStart_toEndOf="@+id/textView_label_office_level"
-                android:text="@{viewModel.uiState.office.officeLevel.toString()}"
                 tools:text="1" />
 
             <TextView
@@ -68,10 +76,10 @@
                 android:layout_marginVertical="@dimen/margin_small"
                 android:ellipsize="end"
                 android:text="@{@string/room_number + ':'}"
-                tools:text="@string/room_number"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintStart_toEndOf="@+id/textView_office_level"
-                app:layout_constraintTop_toBottomOf="@+id/textView_title" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_title"
+                tools:text="@string/room_number" />
 
             <TextView
                 android:id="@+id/textView_room_number"
@@ -79,8 +87,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_xsmall"
-                android:text="@{viewModel.uiState.office.roomNumber}"
                 android:autoSizeTextType="uniform"
+                app:setTextWithFallback="@{viewModel.uiState.office.roomNumber}"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView_label_room_number"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -88,13 +96,76 @@
                 app:layout_constraintStart_toEndOf="@+id/textView_label_room_number"
                 tools:text="1" />
 
+            <com.google.android.material.chip.Chip
+                style="@style/Lovoo.Style.Chip.Yellow"
+                android:id="@+id/chipType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:setTextWithFallback="@{viewModel.uiState.office.type}"
+                tools:text="type"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                android:layout_marginVertical="@dimen/margin_xsmall"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/barrier" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipDepartment"
+                style="@style/Lovoo.Style.Chip.Fuschia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_xsmall"
+                app:layout_constraintBaseline_toBaselineOf="@+id/chipType"
+                app:layout_constraintEnd_toStartOf="@+id/layout_lovoo_fact"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/chipType"
+                app:setTextWithFallback="@{viewModel.uiState.office.department}"
+                tools:text="department" />
+
+            <LinearLayout
+                android:id="@+id/layout_lovoo_fact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:onClick="@{()-> onLovooFactClicked.invoke(viewModel.uiState.office.lovooFact)}"
+                android:visibility="@{viewModel.uiState.office.lovooFact == null ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@+id/chipDepartment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/chipDepartment">
+
+                <ImageView
+                    android:id="@+id/imageView_lovoo_fact"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_fact" />
+
+                <TextView
+                    android:id="@+id/textView_check_fact"
+                    style="?attr/textAppearanceBoldHeadline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/check_fact"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/group_booking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{viewModel.uiState.isOfTypeMeeting() ? View.VISIBLE : View.GONE}"
+                app:constraint_referenced_ids="textView_bookings,
+                recyclerView_bookings,
+                textView_no_items,
+                materialButtonBookOffice" />
+
             <TextView
                 android:id="@+id/textView_bookings"
                 style="?attr/textAppearanceBoldHeadline5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginHorizontal="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_xsmall"
                 android:ellipsize="end"
                 android:lines="1"
                 android:text="@string/bookings"
@@ -102,15 +173,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_label_office_level" />
+                app:layout_constraintTop_toBottomOf="@+id/chipType" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_bookings"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:clipToPadding="false"
-                android:paddingHorizontal="@dimen/margin_small"
-                android:paddingVertical="@dimen/margin_xsmall"
+                android:paddingHorizontal="@dimen/margin_xsmall"
+                android:paddingBottom="@dimen/margin_small"
+                app:officeBookingItems="@{viewModel.uiState.bookings}"
                 app:layout_constraintBottom_toTopOf="@+id/materialButtonBookOffice"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -121,13 +193,13 @@
                 style="?attr/textAppearanceBoldBody1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_small"
+                android:layout_marginHorizontal="@dimen/margin_xsmall"
                 android:layout_marginVertical="@dimen/margin_small"
                 android:layout_marginTop="211dp"
                 android:layout_marginBottom="573dp"
                 android:ellipsize="end"
-                android:visibility="@{viewModel.uiState.office.bookings.size() > 0 ? View.GONE : View.VISIBLE}"
                 android:text="@string/no_bookings_available"
+                android:visibility="@{viewModel.uiState.bookings.size() > 0 ? View.GONE : View.VISIBLE}"
                 app:layout_constrainedWidth="true"
                 app:layout_constraintBottom_toBottomOf="@+id/recyclerView_bookings"
                 app:layout_constraintEnd_toEndOf="@+id/recyclerView_bookings"
@@ -144,6 +216,16 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="textView_label_office_level,
+                textView_office_level,
+                textView_label_room_number,
+                textView_room_number" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -4,10 +4,7 @@ import com.lovoo.lovoooffice.core.data.database.model.officebooking.OfficeBookin
 import com.lovoo.lovoooffice.core.data.database.model.officebooking.OfficeFilterDtoMapper
 import com.lovoo.lovoooffice.core.data.model.office.OfficeDtoMapper
 import com.lovoo.lovoooffice.core.domain.repositories.OfficeRepository
-import com.lovoo.lovoooffice.core.domain.usecases.office.GetOfficeFiltersUseCase
-import com.lovoo.lovoooffice.core.domain.usecases.office.OfficeFiltersDatabaseUseCase
-import com.lovoo.lovoooffice.core.domain.usecases.office.GetOfficesUseCase
-import com.lovoo.lovoooffice.core.domain.usecases.office.OfficeBookingsDatabaseUseCase
+import com.lovoo.lovoooffice.core.domain.usecases.office.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,19 +35,28 @@ object UseCaseModule {
 
     @Singleton
     @Provides
-    fun provideGetOfficeFiltersUseCase(
+    fun provideGetOfficeBookingsDatabaseUseCase(
         officeRepository: OfficeRepository,
-        officeFilterDtoMapper: OfficeFilterDtoMapper
-    ): GetOfficeFiltersUseCase {
-        return GetOfficeFiltersUseCase(officeRepository, officeFilterDtoMapper)
+        officeBookingDtoMapper: OfficeBookingDtoMapper
+    ): GetOfficeBookingsDatabaseUseCase {
+        return GetOfficeBookingsDatabaseUseCase(officeRepository, officeBookingDtoMapper)
     }
 
     @Singleton
     @Provides
-    fun provideOfficeFiltersDatabaseUseCase(
+    fun provideGetOfficeFiltersUseCase(
         officeRepository: OfficeRepository
-    ): OfficeFiltersDatabaseUseCase {
-        return OfficeFiltersDatabaseUseCase(officeRepository)
+    ): GetOfficeFiltersUseCase {
+        return GetOfficeFiltersUseCase(officeRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetOfficeFiltersDatabaseUseCase(
+        officeRepository: OfficeRepository,
+        officeFilterDtoMapper: OfficeFilterDtoMapper
+    ): GetOfficeFiltersDatabaseUseCase {
+        return GetOfficeFiltersDatabaseUseCase(officeRepository, officeFilterDtoMapper)
     }
 
 }

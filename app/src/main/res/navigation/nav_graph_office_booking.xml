@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_office_booking"
     app:startDestination="@id/officeBookingFragment">
+    <argument
+        android:name="office"
+        app:argType="com.lovoo.lovoooffice.core.domain.model.Office" />
     <fragment
         android:id="@+id/officeBookingFragment"
         android:name="com.lovoo.lovoooffice.presentation.officebooking.OfficeBookingFragment"
@@ -13,5 +16,8 @@
             android:name="title"
             android:defaultValue="@string/office_booking"
             app:argType="reference" />
+        <argument
+            android:name="office"
+            app:argType="com.lovoo.lovoooffice.core.domain.model.Office" />
     </fragment>
 </navigation>
