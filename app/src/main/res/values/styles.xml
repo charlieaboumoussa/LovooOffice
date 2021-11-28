@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Lovoo.Style" parent=""/>
+
+    <style name="Lovoo.Style.CardView" parent="@style/CardView">
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="useCompatPadding">true</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    <style name="Lovoo.Style.CardView.LowerElevation">
+        <item name="android:elevation">@dimen/card_elevation_low</item>
+        <item name="cardElevation">@dimen/card_elevation_low</item>
+    </style>
+
+    <style name="Lovoo.Style.Progress" parent="@style/Widget.MaterialComponents.CircularProgressIndicator">
+        <item name="android:indeterminateTint">@color/blue</item>
+        <item name="android:indeterminate">true</item>
+        <item name="indicatorColor">@color/blue</item>
+        <item name="trackCornerRadius">@dimen/track_corner_radius</item>
+    </style>
+
+    <style name="Lovoo.Style.Button" parent="@style/Widget.MaterialComponents.Button">
+        <item name="android:textAppearance">?attr/buttonTextAppearance</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:paddingTop">@dimen/padding_xsmall</item>
+        <item name="android:minHeight">@dimen/button_min_height</item>
+        <item name="android:textColor">@color/selector_text_color_primary_button</item>
+        <item name="android:backgroundTint">@color/selector_background_color_primary_button</item>
+        <item name="cornerRadius">@dimen/button_corner_radius</item>
+    </style>
+
+    <style name="Lovoo.Style.Button.Secondary">
+        <item name="android:textColor">@color/selector_text_color_secondary_button</item>
+        <item name="android:backgroundTint">@color/selector_background_color_secondary_button</item>
+    </style>
+
+    <style name="Lovoo.Style.NativeDialog" parent="@style/Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="buttonBarPositiveButtonStyle">@style/Lovoo.Style.NativeDialog.PositiveButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Lovoo.Style.NativeDialog.NegativeButton</item>
+    </style>
+
+    <style name="Lovoo.Style.NativeDialog.PositiveButton" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+<!--        <item name="android:textColor">@color/amb_main_color</item>-->
+    </style>
+
+    <style name="Lovoo.Style.NativeDialog.NegativeButton" parent="@style/Theme.MaterialComponents.Dialog.Alert">
+
+    </style>
+
+<!--    <style name="Lovoo.Style.EditText" parent="Widget.MaterialComponents.Toolbar.Primary">-->
+<!--        &lt;!&ndash;Any text styling can be done here&ndash;&gt;-->
+<!--    </style>-->
+
+    <style name="Lovoo.Style.Chip" parent="@style/Widget.MaterialComponents.Chip.Action">
+
+    </style>
+
+    <style name="Lovoo.Style.Chip.Yellow">
+        <item name="chipBackgroundColor">@color/yellow_100_Op30</item>
+        <item name="android:textColor">@color/yellow</item>
+    </style>
+
+    <style name="Lovoo.Style.Chip.Fuschia">
+        <item name="chipBackgroundColor">@color/fuschia_100_Op30</item>
+        <item name="android:textColor">@color/fuschia</item>
+    </style>
+
+    <style name="Lovoo.Style.Loader">
+
+    </style>
+
+    <style name="Lovoo.Style.Loader.Background">
+        <item name="android:background">@color/grey_gainsboro_Op60</item>
+    </style>
+
+    <style name="Lovoo.Theme.Dialog.Translucent" parent="@style/Theme.AppCompat.Dialog">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+</resources>

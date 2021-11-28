@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_landing"
+    app:startDestination="@id/officesFragment">
+
+    <include app:graph="@navigation/nav_graph_lovoo_fact" />
+    <include app:graph="@navigation/nav_graph_office_details" />
+    <include app:graph="@navigation/nav_graph_filters" />
+
+    <fragment
+        android:id="@+id/officesFragment"
+        android:name="com.lovoo.lovoooffice.presentation.landing.fragments.OfficesFragment"
+        android:label="OfficesFragment"
+        tools:layout="@layout/fragment_offices">
+        <argument
+            android:name="title"
+            app:argType="reference"
+            android:defaultValue="@string/offices" />
+        <argument
+            android:name="shouldShowBackButton"
+            app:argType="boolean"
+            android:defaultValue="true" />
+        <action
+            android:id="@+id/action_officesFragment_to_nav_graph_filters"
+            app:destination="@id/nav_graph_filters"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
+        <action
+            android:id="@+id/action_officesFragment_to_nav_graph_lovoo_fact"
+            app:destination="@id/nav_graph_lovoo_fact"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit">
+            <argument
+                android:name="lovooFact"
+                app:argType="com.lovoo.lovoooffice.core.domain.model.LovooFact" />
+        </action>
+        <action
+            android:id="@+id/action_officesFragment_to_nav_graph_office_details"
+            app:destination="@id/nav_graph_office_details"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit">
+            <argument
+                android:name="office"
+                app:argType="com.lovoo.lovoooffice.core.domain.model.Office" />
+        </action>
+    </fragment>
+</navigation>

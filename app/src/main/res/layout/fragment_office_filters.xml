@@ -1,0 +1,98 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.lovoo.lovoooffice.presentation.landing.fragments.OfficesViewModel"/>
+        <import type="com.lovoo.lovoooffice.presentation.landing.fragments.OfficesViewModel.FilterType"/>
+        <variable
+            name="viewModel"
+            type="OfficesViewModel" />
+    </data>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_type"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/type"
+                app:endIconMode="dropdown_menu"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:text="@{viewModel.uiState.filtersToApply.get(FilterType.TYPE.name().toLowerCase()).value}"
+                    app:shouldRepopulate="@{viewModel.uiState.shouldUpdateFilters}"
+                    app:populateAutoCompleteTextView="@{viewModel.uiState.filtersMap.get(FilterType.TYPE.name().toLowerCase()).values}"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_department"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/department"
+                app:endIconMode="dropdown_menu"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_input_layout_type">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dropdown_department"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    app:shouldRepopulate="@{viewModel.uiState.shouldUpdateFilters}"
+                    android:text="@{viewModel.uiState.filtersToApply.get(FilterType.DEPARTMENT.name().toLowerCase()).value}"
+                    app:populateAutoCompleteTextView="@{viewModel.uiState.filtersMap.get(FilterType.DEPARTMENT.name().toLowerCase()).values}"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_apply_filters"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:enabled="@{viewModel.uiState.filtersToApply.size() > 0}"
+                android:onClick="@{()->viewModel.applyFilters()}"
+                android:text="@string/apply_filters"
+                app:layout_constraintBottom_toTopOf="@+id/button_clear_filters"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_input_layout_department"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <com.google.android.material.button.MaterialButton
+                style="?attr/buttonStyleSecondary"
+                android:id="@+id/button_clear_filters"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:text="@string/clear_filters"
+                android:onClick="@{()->viewModel.clearFilters()}"
+                android:visibility="@{viewModel.uiState.appliedFilters.size() > 0 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>
