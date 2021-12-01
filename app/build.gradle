@@ -13,9 +13,9 @@ android {
     signingConfigs {
         signed {
             storeFile file(rootProject.file('keystore/keystore.jks'))
-            storePassword 'LpKoJi098)(*'
-            keyAlias 'latestmovies'
-            keyPassword 'LpKoJi098)(*'
+            storePassword 'lovoooffice123'
+            keyAlias 'lovoooffice'
+            keyPassword 'lovoooffice123'
         }
     }
 
